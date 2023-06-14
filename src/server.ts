@@ -11,7 +11,7 @@ process.on('uncaughtException', error => {
 
 let server: Server;
 
-async function dbConnect() {
+async function bootstrap() {
   try {
     await mongoose.connect(config.database_url as string);
     logger.info(`🛢   Database is connected successfully`);
@@ -35,7 +35,7 @@ async function dbConnect() {
   });
 }
 
-dbConnect();
+bootstrap();
 
 process.on('SIGTERM', () => {
   logger.info('SIGTERM is received');
