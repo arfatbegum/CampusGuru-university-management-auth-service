@@ -20,7 +20,7 @@ const createStudent: RequestHandler = catchAsync(
   }
 );
 
-const createFaculty: RequestHandler = catchAsync(
+const createFaculy: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { faculty, ...userData } = req.body;
     const result = await UserService.createFaculty(faculty, userData);
@@ -50,6 +50,6 @@ const createAdmin: RequestHandler = catchAsync(
 
 export const UserController = {
   createStudent,
-  createFaculty,
+  createFaculy,
   createAdmin,
 };
