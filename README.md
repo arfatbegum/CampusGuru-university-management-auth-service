@@ -107,6 +107,11 @@ Admins can create, read, update, and delete academic semesters and faculties, en
 ### Authentication and Security:
 
 * The application ensures the security of user data through features like password changes, forced logouts, and token management.
+* 
+
+## ER Diagram
+![image](https://github.com/arfatbegum/CampusGuru-university-management-auth-service/assets/96864183/084960bd-c332-4838-a1c2-1c31ad6022f7)
+
 
 ### Academic Semester Management:
 
