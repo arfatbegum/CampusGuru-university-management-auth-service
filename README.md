@@ -1,6 +1,6 @@
 # CampusGuru-university-management-auth-service
 
-* The University Management System is a comprehensive and user-friendly web application designed to streamline and enhance the administrative and academic operations of a university. This system serves three primary user roles: Admin, Student, and Faculty, each with their specific functionalities and responsibilities. Here's an overview of the key features and functionalities of the system:
+* The CampusGuru University Management System is a comprehensive and user-friendly web application designed to streamline and enhance the administrative and academic operations of a university. This system serves three primary user roles: Admin, Student, and Faculty, each with its specific functionalities and responsibilities. Here's an overview of the key features and functionalities of the system:
 
 ### Student Features:
 
@@ -81,7 +81,7 @@ Admins can create, read, update, and delete academic semesters and faculties, en
 ### Admin:
 - admins?page=1&limit=10 (GET)
 - admins/:id  (GET)
-- admin/:id    (PATCH)
+- admin/:id   (PATCH)
 
 ### Permission
 - permissions?page=1&limit=10 (GET)
@@ -92,8 +92,6 @@ Admins can create, read, update, and delete academic semesters and faculties, en
 
 ### Auth
 - auth/login (POST)
-- id
-- password
 - auth/change-password (POST)
 - auth/refresh-token (POST)
 - auth/forgot-password(POST)
