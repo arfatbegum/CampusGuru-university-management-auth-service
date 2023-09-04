@@ -108,13 +108,11 @@ Admins can create, read, update, and delete academic semesters and faculties, en
 
 * The application ensures the security of user data through features like password changes, forced logouts, and token management.
 * 
-
-## ER Diagram
-![image](https://github.com/arfatbegum/CampusGuru-university-management-auth-service/assets/96864183/084960bd-c332-4838-a1c2-1c31ad6022f7)
-
-
 ### Academic Semester Management:
 
 * Admins can efficiently create, view, update, and delete academic semesters, enhancing the academic planning process.
 
 * In summary, the University Management System is a robust and versatile web application tailored to the unique needs of university administration, students, and faculty. It provides a centralized platform for efficient management of academic processes, user accounts, and permissions, ultimately enhancing the university's operational efficiency and academic experience.
+
+## ER Diagram
+![image](https://github.com/arfatbegum/CampusGuru-university-management-auth-service/assets/96864183/084960bd-c332-4838-a1c2-1c31ad6022f7)
