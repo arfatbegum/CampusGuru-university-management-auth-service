@@ -7,9 +7,10 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { User } from '../user/user.model';
-import { studentSearchableFields } from './student.constants';
+import { EVENT_STUDENT_DELETED, EVENT_STUDENT_UPDATED, studentSearchableFields } from './student.constants';
 import { IStudent, IStudentFilters } from './student.interface';
 import { Student } from './student.model';
+import { RedisClient } from '../../../shared/redis';
 
 const getAllStudents = async (
   filters: IStudentFilters,
@@ -115,6 +116,11 @@ const updateStudent = async (
   const result = await Student.findOneAndUpdate({ id }, updatedStudentData, {
     new: true,
   });
+
+  if (result) {
+    await RedisClient.publish(EVENT_STUDENT_UPDATED, JSON.stringify(result));
+  }
+
   return result;
 };
 
@@ -139,6 +145,10 @@ const deleteStudent = async (id: string): Promise<IStudent | null> => {
     await User.deleteOne({ id });
     session.commitTransaction();
     session.endSession();
+
+    if (student) {
+      await RedisClient.publish(EVENT_STUDENT_DELETED, JSON.stringify(student));
+    }
 
     return student;
   } catch (error) {
