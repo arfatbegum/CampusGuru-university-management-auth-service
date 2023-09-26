@@ -2,17 +2,23 @@ import { SortOrder } from 'mongoose';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
-import { managementDepartmentSearchableFields } from './managementDepartment.constants';
+import { EVENT_MANAGEMENT_DEPARTMENT_CREATED, EVENT_MANAGEMENT_DEPARTMENT_DELETED, EVENT_MANAGEMENT_DEPARTMENT_UPDATED, managementDepartmentSearchableFields } from './managementDepartment.constants';
 import {
   IManagementDepartment,
   IManagementDepartmentFilters,
 } from './managementDepartment.interface';
 import { ManagementDepartment } from './managementDepartment.model';
+import { RedisClient } from '../../../shared/redis';
 
 const createDepartment = async (
   payload: IManagementDepartment
 ): Promise<IManagementDepartment | null> => {
   const result = await ManagementDepartment.create(payload);
+
+  if (result) {
+    await RedisClient.publish(EVENT_MANAGEMENT_DEPARTMENT_CREATED, JSON.stringify(result));
+  }
+
   return result;
 };
 
@@ -88,6 +94,11 @@ const updateDepartment = async (
       new: true,
     }
   );
+
+  if (result) {
+    await RedisClient.publish(EVENT_MANAGEMENT_DEPARTMENT_UPDATED, JSON.stringify(result));
+  }
+
   return result;
 };
 
@@ -95,6 +106,11 @@ const deleteDepartment = async (
   id: string
 ): Promise<IManagementDepartment | null> => {
   const result = await ManagementDepartment.findByIdAndDelete(id);
+
+  if (result) {
+    await RedisClient.publish(EVENT_MANAGEMENT_DEPARTMENT_DELETED, JSON.stringify(result));
+  }
+
   return result;
 };
 
