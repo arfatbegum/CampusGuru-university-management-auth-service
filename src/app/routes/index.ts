@@ -14,41 +14,41 @@ const router = express.Router();
 const moduleRoutes = [
   {
     path: '/auth',
-    route: AuthRoutes,
+    routes: AuthRoutes,
   },
   {
     path: '/users',
-    route: UserRoutes,
+    routes: UserRoutes,
   },
   {
     path: '/academic-semesters',
-    route: AcademicSemesterRoutes,
+    routes: AcademicSemesterRoutes,
   },
   {
     path: '/academic-faculties',
-    route: AcademicFacultyRoutes,
+    routes: AcademicFacultyRoutes,
   },
   {
     path: '/academic-departments',
-    route: AcademicDepartmentRoutes,
+    routes: AcademicDepartmentRoutes,
   },
   {
     path: '/management-departments',
-    route: ManagementDepartmentRoutes,
+    routes: ManagementDepartmentRoutes,
   },
   {
     path: '/students',
-    route: StudentRoutes,
+    routes: StudentRoutes,
   },
   {
     path: '/faculties',
-    route: FacultyRoutes,
+    routes: FacultyRoutes,
   },
   {
     path: '/admins',
-    route: AdminRoutes,
+    routes: AdminRoutes,
   },
 ];
 
-moduleRoutes.forEach(route => router.use(route.path, route.route));
+moduleRoutes.forEach(route => router.use(route.path, route.routes));
 export default router;
