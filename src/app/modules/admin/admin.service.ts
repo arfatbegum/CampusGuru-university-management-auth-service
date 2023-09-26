@@ -5,8 +5,13 @@ import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
+import { RedisClient } from '../../../shared/redis';
 import { User } from '../user/user.model';
-import { adminSearchableFields } from './admin.constants';
+import {
+  EVENT_ADMIN_DELETED,
+  EVENT_ADMIN_UPDATED,
+  adminSearchableFields,
+} from './admin.constants';
 import { IAdmin, IAdminFilters } from './admin.interface';
 import { Admin } from './admin.model';
 
@@ -94,6 +99,11 @@ const updateAdmin = async (
   const result = await Admin.findOneAndUpdate({ id }, updatedStudentData, {
     new: true,
   });
+
+  if (result) {
+    await RedisClient.publish(EVENT_ADMIN_UPDATED, JSON.stringify(result));
+  }
+
   return result;
 };
 
@@ -110,8 +120,8 @@ const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
   try {
     session.startTransaction();
     //delete student first
-    const student = await Admin.findOneAndDelete({ id }, { session });
-    if (!student) {
+    const admin = await Admin.findOneAndDelete({ id }, { session });
+    if (!admin) {
       throw new ApiError(404, 'Failed to delete student');
     }
     //delete user
@@ -119,7 +129,11 @@ const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
     session.commitTransaction();
     session.endSession();
 
-    return student;
+    if (admin) {
+      await RedisClient.publish(EVENT_ADMIN_DELETED, JSON.stringify(admin));
+    }
+
+    return admin;
   } catch (error) {
     session.abortTransaction();
     throw error;
