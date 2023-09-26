@@ -18,4 +18,7 @@ export const facultyFilterableFields = [
     'name.firstName',
     'name.lastName',
     'name.middleName',
-  ];
+];
+  
+export const EVENT_FACULTY_UPDATED = 'faculty.updated';
+export const EVENT_FACULTY_DELETED = 'faculty.deleted';

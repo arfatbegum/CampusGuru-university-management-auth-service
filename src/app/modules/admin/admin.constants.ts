@@ -20,4 +20,4 @@ export const adminSearchableFields = [
 ];
 
 export const EVENT_ADMIN_UPDATED = 'admin.updated';
-export const EVENT_ADMIN_DELETED = 'ademin.deleted';
+export const EVENT_ADMIN_DELETED = 'admin.deleted';
