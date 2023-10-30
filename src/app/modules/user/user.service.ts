@@ -161,12 +161,13 @@ const createFaculty = async (
   if (newUserAllData) {
     await RedisClient.publish(
       EVENT_FACULTY_CREATED,
-      JSON.stringify(newUserAllData.student)
+      JSON.stringify(newUserAllData.faculty)
     );
   }
 
   return newUserAllData;
 };
+
 const createAdmin = async (
   admin: IAdmin,
   user: IUser
